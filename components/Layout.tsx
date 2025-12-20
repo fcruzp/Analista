@@ -46,14 +46,14 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
 
   return (
     <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden font-sans">
-      
+
       {/* Mobile Top Header - Sci-fi Style */}
       <header className="md:hidden fixed top-0 left-0 right-0 h-16 bg-slate-950/60 backdrop-blur-2xl border-b border-cyan-500/10 flex items-center justify-between px-6 z-40">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded border border-cyan-500/30 bg-cyan-500/10 flex items-center justify-center font-bold text-cyan-400 text-xs shadow-[0_0_15px_rgba(34,211,238,0.2)]">A+</div>
-          <span className="font-black tracking-tighter text-white text-lg uppercase italic">Analista<span className="text-cyan-400 font-normal">.OS</span></span>
+          <span className="font-black tracking-tighter text-white text-lg uppercase italic">Analista<span className="text-cyan-400 font-normal">+</span></span>
         </div>
-        <button 
+        <button
           onClick={mockLogout}
           className="w-10 h-10 flex items-center justify-center border border-slate-800 rounded-lg text-slate-400 hover:text-red-400 hover:border-red-400/50 hover:bg-red-400/5 transition-all"
         >
@@ -64,7 +64,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
       {/* Sidebar Desktop - Tech Console Style */}
       <aside className="hidden md:flex flex-col w-72 border-r border-slate-800 bg-slate-950/80 backdrop-blur-xl relative">
         <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"></div>
-        
+
         <div className="p-8">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded border border-cyan-500/20 bg-cyan-500/5 flex items-center justify-center font-bold text-cyan-400 text-sm shadow-[0_0_20px_rgba(34,211,238,0.1)]">A+</div>
@@ -74,7 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
             </div>
           </div>
         </div>
-        
+
         <nav className="flex-1 px-4 space-y-3 mt-4">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -83,11 +83,10 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center space-x-4 px-5 py-4 rounded-xl transition-all relative group ${
-                  isActive 
-                    ? 'bg-cyan-500/5 text-cyan-400 border border-cyan-500/20' 
+                className={`w-full flex items-center space-x-4 px-5 py-4 rounded-xl transition-all relative group ${isActive
+                    ? 'bg-cyan-500/5 text-cyan-400 border border-cyan-500/20'
                     : 'text-slate-500 hover:bg-slate-900/50 hover:text-slate-300 border border-transparent'
-                }`}
+                  }`}
               >
                 {isActive && (
                   <div className="absolute left-0 w-[3px] h-6 bg-cyan-400 rounded-r-full shadow-[0_0_10px_rgba(34,211,238,0.8)]"></div>
@@ -116,7 +115,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
       <nav className="md:hidden fixed bottom-4 left-4 right-4 bg-slate-900/40 backdrop-blur-3xl border border-white/5 rounded-2xl flex justify-around p-2 z-50 shadow-2xl safe-area-bottom overflow-hidden">
         {/* Subtle Background Glow for Nav */}
         <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/5 to-transparent pointer-events-none"></div>
-        
+
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -124,22 +123,21 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`relative flex flex-col items-center justify-center w-16 h-14 transition-all duration-500 rounded-xl ${
-                isActive ? 'text-cyan-400' : 'text-slate-600'
-              }`}
+              className={`relative flex flex-col items-center justify-center w-16 h-14 transition-all duration-500 rounded-xl ${isActive ? 'text-cyan-400' : 'text-slate-600'
+                }`}
             >
               {/* Active Indicator Bar */}
               {isActive && (
                 <div className="absolute -top-1 w-8 h-[2px] bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,1)] animate-pulse-glow"></div>
               )}
-              
+
               <div className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'scale-100'}`}>
                 <Icon active={isActive} />
               </div>
               <span className={`text-[8px] font-black uppercase tracking-[0.2em] mt-1 transition-all duration-300 ${isActive ? 'opacity-100 translate-y-0 text-cyan-400' : 'opacity-40 translate-y-1'}`}>
                 {item.label}
               </span>
-              
+
               {/* Internal Glow for Active Item */}
               {isActive && (
                 <div className="absolute inset-0 bg-cyan-500/10 blur-xl -z-10 rounded-full"></div>

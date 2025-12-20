@@ -33,20 +33,20 @@ export const getCachedTrends = (country: string, topic: string): TrendResponse |
 };
 
 export const fetchRealTimeTrends = async (
-  country: string = 'Global', 
-  topic: string = 'Todos', 
+  country: string = 'Global',
+  topic: string = 'Todos',
   forceRefresh: boolean = false,
-  retries = 2, 
+  retries = 2,
   backoff = 2000
 ): Promise<TrendResponse> => {
-  
+
   if (!forceRefresh) {
     const cached = getCachedTrends(country, topic);
     if (cached) return cached;
   }
 
   const apiKey = process.env.API_KEY;
-  
+
   if (!apiKey || apiKey.trim() === "") {
     return {
       trends: [],
@@ -57,7 +57,7 @@ export const fetchRealTimeTrends = async (
   }
 
   const ai = new GoogleGenAI({ apiKey });
-  
+
   const countryContext = country === 'Global' ? 'en el mundo' : `en ${country}`;
   const topicContext = topic === 'Todos' ? 'de noticias generales' : `específicamente sobre ${topic}`;
 
@@ -74,7 +74,7 @@ export const fetchRealTimeTrends = async (
 
     const text = response.text || "";
     const lines = text.split('\n').filter(line => line.includes('|'));
-    
+
     if (lines.length === 0) {
       throw new Error("Formato de respuesta no reconocido por la IA.");
     }
@@ -95,15 +95,20 @@ export const fetchRealTimeTrends = async (
       uri: chunk.web?.uri || '#'
     })).filter((s: any) => s.uri !== '#') || [];
 
-    // Eliminar duplicados por URI
-    const sources = Array.from(new Map(rawSources.map((s: any) => [s.uri, s])).values());
+    // Priorizar fuentes únicas pero intentar que coincidan con la cantidad de trends
+    let sources = Array.from(new Map(rawSources.map((s: any) => [s.uri, s])).values());
 
-    const finalResponse: TrendResponse = { 
-      trends, 
-      sources, 
-      lastUpdated: new Date().toISOString() 
+    // Si tenemos más fuentes que trends, tomamos las primeras N
+    if (sources.length > trends.length) {
+      sources = sources.slice(0, trends.length);
+    }
+
+    const finalResponse: TrendResponse = {
+      trends,
+      sources,
+      lastUpdated: new Date().toISOString()
     };
-    
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       country,
       topic,
@@ -113,7 +118,7 @@ export const fetchRealTimeTrends = async (
     return finalResponse;
   } catch (error: any) {
     console.error("Trend Service Error:", error);
-    
+
     if (error?.status === 400 || error?.message?.includes("API key not valid")) {
       return {
         trends: [],

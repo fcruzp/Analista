@@ -10,7 +10,7 @@ interface GenerateParams {
 }
 
 export const generateAIAnalysisStream = async (
-  params: GenerateParams, 
+  params: GenerateParams,
   onChunk: (text: string) => void
 ): Promise<void> => {
   const apiKey = process.env.API_KEY;
@@ -19,7 +19,7 @@ export const generateAIAnalysisStream = async (
   }
 
   const ai = new GoogleGenAI({ apiKey });
-  
+
   const typeInstructions = {
     [AnalysisType.DEEP]: "Realiza un análisis profundo, estructurado y con visión crítica. Usa subtítulos y puntos clave.",
     [AnalysisType.BRIEF]: "Escribe un comentario breve, directo y contundente de máximo 2 párrafos.",
@@ -39,7 +39,13 @@ export const generateAIAnalysisStream = async (
   
   REGLA CRÍTICA: Utiliza la búsqueda de Google para obtener los datos más recientes sobre "${params.prompt}". 
   No te bases en tu conocimiento previo si hay noticias de las últimas 48 horas.
-  Responde ÚNICAMENTE en formato Markdown elegante.`;
+  
+  REGLAS DE FORMATO:
+  - Responde ÚNICAMENTE en formato Markdown elegante.
+  - NO utilices iconos, emojis ni símbolos gráficos.
+  - Evita el uso excesivo de asteriscos. Úsalos solo para negritas (\*\*texto\*\*).
+  - Usa títulos (#) y subtítulos (##, ###) para estructurar la información.
+  - El tono debe ser profesional y directo.`;
 
   try {
     const responseStream = await ai.models.generateContentStream({
