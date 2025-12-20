@@ -56,7 +56,7 @@ const BlogView = () => (
       <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">Blog de Analista+</h2>
       <p className="text-slate-400">Perspectivas sobre periodismo, IA y el futuro de los medios.</p>
     </div>
-    
+
     <div className="space-y-12 text-left">
       {[
         { date: "24 Oct 2023", title: "El fin del bloqueo del escritor en la redacción", desc: "Cómo los LLMs están transformando las mesas de noticias urgentes.", author: "Equipo A+" },
@@ -104,14 +104,14 @@ const MockupSidebar = ({ step }: { step: number }) => (
   <div className="hidden md:block col-span-3 space-y-4 border-r border-slate-800/50 pr-4 h-full">
     <div className="h-8 w-24 bg-slate-800/50 rounded animate-pulse mb-8"></div>
     <div className="space-y-2">
-      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-sm font-medium transition-colors duration-500 ${step === 0 ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'text-slate-500'}`}>
-         <span className="text-lg">📊</span> Dashboard
+      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 0 ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-500'}`}>
+        <span className="text-lg">📊</span> Panel
       </div>
-      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-sm font-medium transition-colors duration-500 ${step === 1 ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'text-slate-500'}`}>
-         <span className="text-lg">⚡</span> Productor IA
+      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 1 ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-500'}`}>
+        <span className="text-lg">🎙️</span> Estudio
       </div>
-      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-sm font-medium transition-colors duration-500 ${step === 2 ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'text-slate-500'}`}>
-         <span className="text-lg">📚</span> Biblioteca
+      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 2 ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-500'}`}>
+        <span className="text-lg">📂</span> Archivo
       </div>
     </div>
   </div>
@@ -133,33 +133,33 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
       <div className="max-w-5xl mx-auto text-center relative z-10 animate-fade-in-up">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-8">
           <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-          Nuevo Motor GPT-5 Preview
+          Potenciado por Google Gemini 1.5 Ultra
         </div>
-        
+
         <h1 className="text-6xl md:text-8xl font-black tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">
           ANALIST<span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 animate-text-glow transform origin-center">A+</span>
         </h1>
-        
+
         <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6 font-light leading-relaxed">
           Toma el control de tu narrativa con inteligencia superior.
         </p>
-        
+
         <p className="text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
           Analista+ es tu sala de redacción personal. Rastrea tendencias globales, cruza datos históricos, sugiere ángulos editoriales únicos y redacta guiones listos para el aire en segundos.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
-          <button 
-            onClick={onStart} 
+          <button
+            onClick={onStart}
             className="group relative px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-full font-bold text-lg transition-all shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:shadow-[0_0_60px_rgba(37,99,235,0.5)] overflow-hidden"
           >
             <span className="relative z-10 flex items-center gap-2">
-              Comenzar Prueba Gratis 
+              Comenzar Prueba Gratis
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             </span>
           </button>
-          <button 
-            onClick={onOpenVideo} 
+          <button
+            onClick={onOpenVideo}
             className="px-8 py-4 text-slate-300 hover:text-white font-medium transition-colors"
           >
             Ver cómo funciona
@@ -177,30 +177,98 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
             <div className="p-6 grid grid-cols-12 gap-6 h-[500px] overflow-hidden text-left bg-gradient-to-b from-slate-900 to-slate-950">
               <MockupSidebar step={mockupStep} />
               <div className="col-span-12 md:col-span-9 relative">
-                  <div className={`absolute inset-0 transition-all duration-700 transform ${mockupStep === 0 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}`}>
-                      <div className="flex justify-between items-center mb-8">
-                          <div><h3 className="text-2xl font-bold text-white">Resumen Diario</h3><p className="text-slate-400 text-sm">Martes, 24 de Octubre</p></div>
-                      </div>
-                      <div className="grid grid-cols-3 gap-4 mb-8">
-                           <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-700/30">
-                              <div className="text-slate-400 text-xs uppercase font-bold mb-2">Análisis</div>
-                              <div className="text-2xl font-mono text-white">1,248</div>
-                           </div>
-                           <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-700/30">
-                              <div className="text-slate-400 text-xs uppercase font-bold mb-2">Fuentes</div>
-                              <div className="text-2xl font-mono text-blue-400">14,502</div>
-                           </div>
-                           <div className="bg-gradient-to-br from-purple-600/20 to-blue-600/20 p-4 rounded-xl border border-blue-500/20">
-                              <div className="text-blue-300 text-xs uppercase font-bold mb-2">Tokens</div>
-                              <div className="text-2xl font-mono text-white">450k</div>
-                           </div>
-                      </div>
-                      <div className="bg-slate-800/20 rounded-xl border border-slate-700/30 p-6 h-48 flex items-end justify-between gap-2">
-                         {[35, 55, 40, 70, 50, 85, 60, 90, 75, 50, 65, 95].map((h, i) => (
-                             <div key={i} className="w-full bg-blue-600/40 rounded-t" style={{height: `${h}%`}}></div>
-                         ))}
-                      </div>
+                <div className={`absolute inset-0 transition-all duration-700 transform ${mockupStep === 0 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}`}>
+                  <div className="flex justify-between items-center mb-8">
+                    <div><h3 className="text-2xl font-bold text-white uppercase italic tracking-tighter">Panel de Control</h3><p className="text-slate-500 text-[10px] uppercase font-mono tracking-widest">System Status: Active</p></div>
                   </div>
+                  <div className="grid grid-cols-3 gap-4 mb-8">
+                    <div className="bg-slate-800/20 p-4 rounded-xl border border-slate-700/30">
+                      <div className="text-slate-500 text-[8px] uppercase font-black tracking-widest mb-2">Análisis Totales</div>
+                      <div className="text-2xl font-mono text-white">1,248</div>
+                    </div>
+                    <div className="bg-slate-800/20 p-4 rounded-xl border border-slate-700/30">
+                      <div className="text-slate-500 text-[8px] uppercase font-black tracking-widest mb-2">Fuentes Activas</div>
+                      <div className="text-2xl font-mono text-cyan-400">14,502</div>
+                    </div>
+                    <div className="bg-cyan-500/5 p-4 rounded-xl border border-cyan-500/20">
+                      <div className="text-cyan-500/60 text-[8px] uppercase font-black tracking-widest mb-2">Uso Mensual</div>
+                      <div className="text-2xl font-mono text-white">85%</div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/10 rounded-xl border border-slate-700/30 p-6 h-48 flex items-end justify-between gap-2">
+                    {[35, 55, 40, 70, 50, 85, 60, 90, 75, 50, 65, 95].map((h, i) => (
+                      <div key={i} className="w-full bg-cyan-500/30 rounded-t" style={{ height: `${h}%` }}></div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* STEP 1: ESTUDIO (GENERATOR) */}
+                <div className={`absolute inset-0 transition-all duration-700 transform ${mockupStep === 1 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}`}>
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded border border-cyan-500/30 bg-cyan-500/5 flex items-center justify-center font-bold text-cyan-400 text-[8px]">MOD</div>
+                      <h3 className="text-xl font-black text-white uppercase italic">Estudio IA</h3>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-12 gap-6 h-full">
+                    <div className="col-span-4 space-y-4">
+                      <div className="space-y-1">
+                        <div className="text-[7px] font-black text-cyan-500/50 uppercase tracking-widest">Tema</div>
+                        <div className="grid grid-cols-2 gap-1">
+                          {['POL', 'ECO', 'GEO', 'TEC'].map(t => <div key={t} className={`h-6 rounded border text-[6px] flex items-center justify-center font-black ${t === 'POL' ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400' : 'bg-slate-800/30 border-slate-700 text-slate-500'}`}>{t}</div>)}
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="text-[7px] font-black text-cyan-500/50 uppercase tracking-widest">Perfil</div>
+                        <div className="h-8 w-full rounded bg-slate-800/30 border border-slate-700"></div>
+                      </div>
+                      <div className="h-20 w-full rounded bg-slate-950 border border-slate-800"></div>
+                      <div className="h-10 w-full rounded bg-cyan-600"></div>
+                    </div>
+                    <div className="col-span-8 bg-slate-950/50 rounded-xl border border-slate-800 p-6 overflow-hidden relative">
+                      <div className="prose prose-invert prose-cyan max-w-none text-[8px] leading-relaxed text-left">
+                        <h4 className="text-cyan-400 font-black uppercase tracking-widest mb-4 border-b border-slate-800 pb-2 italic">Análisis: Estabilidad del Euro</h4>
+                        <p className="mb-3 text-white font-bold">Resumen Ejecutivo:</p>
+                        <p className="text-slate-400 mb-4 font-light">
+                          El mercado europeo muestra señales de fortalecimiento frente a datos industriales de Alemania.
+                          Se observa un pivote en la política del BCE hacia <span className="text-cyan-400 font-bold">tasas de interés</span> restrictivas.
+                        </p>
+                        <h5 className="text-slate-200 font-bold uppercase tracking-wider mb-2">Puntos de Análisis</h5>
+                        <ul className="space-y-2 text-slate-400 list-inside list-disc">
+                          <li>Inflación subyacente bajando al 2.4%</li>
+                          <li>Impacto de precios de energía estables</li>
+                          <li>Proyección alcista para Q1 2025</li>
+                        </ul>
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-slate-950 to-transparent"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* STEP 2: ARCHIVO (LIBRARY) */}
+                <div className={`absolute inset-0 transition-all duration-700 transform ${mockupStep === 2 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}`}>
+                  <div className="mb-6">
+                    <h3 className="text-xl font-black text-white uppercase italic">Archivo Digital</h3>
+                    <div className="h-px w-20 bg-cyan-500/30 mt-1"></div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { t: "Conflicto en Medio Oriente", d: "Análisis estratégico sobre las implicaciones...", c: "GEO" },
+                      { t: "Tendencias Tech 2024", d: "Resumen ejecutivo de IA aplicada...", c: "TEC" },
+                      { t: "Presupuesto Nacional", d: "Guion aire sobre el nuevo proyecto de ley...", c: "ECO" },
+                      { t: "Elecciones Regionales", d: "Prospección política y datos históricos...", c: "POL" }
+                    ].map((item, i) => (
+                      <div key={i} className="bg-slate-900/40 border border-slate-800 p-3 rounded-lg flex flex-col h-24">
+                        <div className="flex justify-between items-center mb-1">
+                          <div className="text-[6px] font-black text-cyan-400 bg-cyan-500/10 px-1 rounded uppercase tracking-widest">{item.c}</div>
+                          <div className="text-[6px] text-slate-600 font-mono">24/10/24</div>
+                        </div>
+                        <div className="text-[9px] font-bold text-white mb-1 truncate">{item.t}</div>
+                        <div className="text-[7px] text-slate-500 line-clamp-2 italic">"{item.d}"</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -219,20 +287,20 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
         </div>
         <div className="grid md:grid-cols-3 gap-12 relative text-left">
           {[
-            {icon: Icons.Flash, color: "text-blue-400", bg: "bg-blue-400/10", title: "1. Rastreo Inteligente", text: "El sistema escanea miles de fuentes globales en tiempo real."},
-            {icon: Icons.Bias, color: "text-purple-400", bg: "bg-purple-400/10", title: "2. Análisis y Contexto", text: "La IA cruza la noticia con datos históricos y precedentes legales."},
-            {icon: Icons.Script, color: "text-emerald-400", bg: "bg-emerald-400/10", title: "3. Producción", text: "Transforma el análisis en guiones, hilos o puntos clave."}
+            { icon: Icons.Flash, color: "text-blue-400", bg: "bg-blue-400/10", title: "1. Rastreo Inteligente", text: "El sistema escanea miles de fuentes globales en tiempo real." },
+            { icon: Icons.Bias, color: "text-purple-400", bg: "bg-purple-400/10", title: "2. Análisis y Contexto", text: "La IA cruza la noticia con datos históricos y precedentes legales." },
+            { icon: Icons.Script, color: "text-emerald-400", bg: "bg-emerald-400/10", title: "3. Producción", text: "Transforma el análisis en guiones, hilos o puntos clave." }
           ].map((item, i) => (
-             <div key={i} className="relative group">
-               <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500"></div>
-               <div className="relative bg-slate-900 border border-slate-800 p-8 rounded-xl h-full flex flex-col items-start transition-transform group-hover:-translate-y-1">
-                  <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 border border-white/5 ${item.color} shadow-inner`}>
-                    <item.icon />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
-                  <p className="text-slate-400 leading-relaxed text-sm">{item.text}</p>
-               </div>
-             </div>
+            <div key={i} className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500"></div>
+              <div className="relative bg-slate-900 border border-slate-800 p-8 rounded-xl h-full flex flex-col items-start transition-transform group-hover:-translate-y-1">
+                <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 border border-white/5 ${item.color} shadow-inner`}>
+                  <item.icon />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+                <p className="text-slate-400 leading-relaxed text-sm">{item.text}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -284,7 +352,7 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
             <div className="text-4xl font-bold mt-2">$0</div>
             <ul className="space-y-4 text-slate-400 my-8 text-sm">
               <li className="flex gap-2 font-medium">✓ 10 Análisis diarios</li>
-              <li className="flex gap-2">✓ Modelos Llama-3</li>
+              <li className="flex gap-2">✓ Google Gemini 1.5 Flash</li>
             </ul>
             <button onClick={onStart} className="w-full py-3 rounded-xl border border-slate-700 font-bold hover:bg-slate-800 text-white transition-colors">Elegir Gratis</button>
           </div>
@@ -294,7 +362,7 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
             <div className="text-4xl font-bold mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">$9<span className="text-lg text-slate-500 font-normal">/mes</span></div>
             <ul className="space-y-4 text-slate-300 my-8 text-sm">
               <li className="flex gap-2"><span className="text-blue-400 font-bold">✓</span> 100 Análisis mensuales</li>
-              <li className="flex gap-2 font-medium text-white"><span className="text-blue-400 font-bold">✓</span> GPT-4o Mini</li>
+              <li className="flex gap-2 font-medium text-white"><span className="text-blue-400 font-bold">✓</span> Google Gemini 1.5 Pro</li>
               <li className="flex gap-2"><span className="text-blue-400 font-bold">✓</span> Modo "Productor"</li>
             </ul>
             <button onClick={onStart} className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-bold hover:opacity-90 transition-opacity text-white shadow-xl shadow-blue-600/20">Suscribirse Ahora</button>
@@ -304,7 +372,7 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
             <div className="text-4xl font-bold mt-2">$19<span className="text-lg text-slate-500 font-normal">/mes</span></div>
             <ul className="space-y-4 text-slate-400 my-8 text-sm">
               <li className="flex gap-2">✓ 400 Análisis mensuales</li>
-              <li className="flex gap-2">✓ GPT-5 Preview</li>
+              <li className="flex gap-2">✓ Google Gemini 1.5 Ultra (Preview)</li>
             </ul>
             <button onClick={onStart} className="w-full py-3 rounded-xl border border-slate-700 font-bold hover:bg-slate-800 text-white transition-colors">Contactar Ventas</button>
           </div>
@@ -341,7 +409,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGoToLogin }) => {
   }, [view]);
 
   useEffect(() => {
-    const interval = setInterval(() => setMockupStep((p) => (p + 1) % 3), 5000); 
+    const interval = setInterval(() => setMockupStep((p) => (p + 1) % 3), 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -350,24 +418,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGoToLogin }) => {
       <div className={`bg-slate-900 border border-slate-700 rounded-2xl w-full flex flex-col shadow-2xl ${showModal === 'video' ? 'max-w-4xl p-0 overflow-hidden' : 'max-w-2xl p-6 max-h-[80vh]'}`}>
         <div className={`${showModal === 'video' ? 'absolute top-2 right-2 z-10' : 'pb-6 border-b border-slate-800 flex justify-between items-center'}`}>
           {showModal !== 'video' && (
-             <h3 className="text-xl font-bold text-white">
+            <h3 className="text-xl font-bold text-white">
               {showModal === 'terms' ? 'Términos' : showModal === 'privacy' ? 'Privacidad' : 'Uso de IA'}
             </h3>
           )}
           <button onClick={() => setShowModal(null)} className={`hover:text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors ${showModal === 'video' ? 'bg-black/50 text-white hover:bg-black/80' : 'text-slate-400'}`}>✕</button>
         </div>
-        
+
         {showModal === 'video' ? (
           <div className="relative pt-[56.25%] w-full bg-black">
-             <iframe 
-               src="https://www.youtube.com/embed/SbO9xfTzXwA?si=7dexlqpBv4Q-0uo6&controls=0&autoplay=1" 
-               title="YouTube video player"
-               className="absolute top-0 left-0 w-full h-full"
-               frameBorder="0" 
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-               referrerPolicy="strict-origin-when-cross-origin"
-               allowFullScreen
-             ></iframe>
+            <iframe
+              src="https://www.youtube.com/embed/SbO9xfTzXwA?si=7dexlqpBv4Q-0uo6&controls=0&autoplay=1"
+              title="YouTube video player"
+              className="absolute top-0 left-0 w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            ></iframe>
           </div>
         ) : (
           <div className="overflow-auto text-slate-300 whitespace-pre-wrap leading-relaxed mt-4">
@@ -421,12 +489,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGoToLogin }) => {
             </ul>
           </div>
           <div>
-             <h5 className="text-white font-bold mb-4">Recursos</h5>
-             <ul className="space-y-2">
-               <li><button onClick={() => setView('blog')} className="hover:text-blue-400 transition-colors">Blog</button></li>
-               <li><button onClick={() => setView('guide')} className="hover:text-blue-400 transition-colors">Guía de Uso</button></li>
-             </ul>
-           </div>
+            <h5 className="text-white font-bold mb-4">Recursos</h5>
+            <ul className="space-y-2">
+              <li><button onClick={() => setView('blog')} className="hover:text-blue-400 transition-colors">Blog</button></li>
+              <li><button onClick={() => setView('guide')} className="hover:text-blue-400 transition-colors">Guía de Uso</button></li>
+            </ul>
+          </div>
           <div>
             <h5 className="text-white font-bold mb-4">Legal</h5>
             <ul className="space-y-2">
