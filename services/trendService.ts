@@ -8,7 +8,7 @@ export interface RealTrend {
 
 export interface TrendResponse {
   trends: RealTrend[];
-  sources: { title: string; uri: string }[];
+  sources: { title: string; uri: string }[] | any[];
   error?: string;
   needsKeySelection?: boolean;
   lastUpdated?: string;
@@ -40,7 +40,6 @@ export const fetchRealTimeTrends = async (
   backoff = 2000
 ): Promise<TrendResponse> => {
   
-  // Si no forzamos, intentamos sacar de cache persistente
   if (!forceRefresh) {
     const cached = getCachedTrends(country, topic);
     if (cached) return cached;
@@ -65,7 +64,9 @@ export const fetchRealTimeTrends = async (
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
-      contents: `Identifica las 3 tendencias de noticias más importantes e influyentes ${countryContext} ${topicContext} en las últimas 24 horas. Proporciona exactamente 3 líneas con este formato: CATEGORIA | TITULO | IMPACTO (donde IMPACTO es Alto, Medio o Bajo). Ejemplo: Economía | Inflación Global | Alto`,
+      contents: `IMPORTANTE: Usa la búsqueda de Google. Identifica las 3 tendencias de noticias más importantes e influyentes ${countryContext} ${topicContext} en las últimas 24 horas. 
+      Proporciona exactamente 3 líneas con este formato: CATEGORIA | TITULO | IMPACTO (Alto, Medio o Bajo). 
+      DEBES consultar y citar al menos 3 fuentes web distintas (una para cada noticia).`,
       config: {
         tools: [{ googleSearch: {} }],
       },
@@ -87,13 +88,15 @@ export const fetchRealTimeTrends = async (
       };
     });
 
-    const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks || [];
-    const sources = chunks
-      .filter(chunk => chunk.web)
-      .map(chunk => ({
-        title: chunk.web?.title || 'Fuente externa',
-        uri: chunk.web?.uri || '#'
-      }));
+    // Extracción mejorada y deduplicación de fuentes de grounding
+    const metadata = response.candidates?.[0]?.groundingMetadata;
+    const rawSources = metadata?.groundingChunks?.map((chunk: any) => ({
+      title: chunk.web?.title || 'Fuente Externa',
+      uri: chunk.web?.uri || '#'
+    })).filter((s: any) => s.uri !== '#') || [];
+
+    // Eliminar duplicados por URI
+    const sources = Array.from(new Map(rawSources.map((s: any) => [s.uri, s])).values());
 
     const finalResponse: TrendResponse = { 
       trends, 
@@ -101,7 +104,6 @@ export const fetchRealTimeTrends = async (
       lastUpdated: new Date().toISOString() 
     };
     
-    // Persistir en LocalStorage
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       country,
       topic,

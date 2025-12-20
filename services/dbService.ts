@@ -1,16 +1,16 @@
 import { AnalysisResult, Topic, AnalysisType } from '../types';
 
 /**
- * dbService.ts
- * Preparado para migrar a Firebase Firestore.
- * Estructura de colecciones sugerida: 'users/{userId}/productions/{analysisId}'
+ * dbService.ts - Capa de persistencia para el SaaS.
+ * Actualmente utiliza LocalStorage para demo, pero está estructurado para 
+ * conectarse a Supabase o Firebase en producción.
  */
 
 const STORAGE_KEY = 'analista_plus_library';
 
 export const saveAnalysis = async (analysis: Omit<AnalysisResult, 'id' | 'createdAt'>): Promise<AnalysisResult> => {
-  // Simulación de latencia de Cloud Firestore
-  await new Promise(resolve => setTimeout(resolve, 600));
+  // Simulación de latencia de red hacia un backend serverless
+  await new Promise(resolve => setTimeout(resolve, 800));
 
   const newAnalysis: AnalysisResult = {
     ...analysis,
@@ -22,15 +22,20 @@ export const saveAnalysis = async (analysis: Omit<AnalysisResult, 'id' | 'create
     const currentLibrary = getLibraryFromStorage();
     const updatedLibrary = [newAnalysis, ...currentLibrary];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedLibrary));
+    
+    // Aquí iría la llamada a tu API:
+    // await fetch('/api/save', { method: 'POST', body: JSON.stringify(newAnalysis) });
+    
     return newAnalysis;
   } catch (e) {
-    console.error("Error local storage persistence:", e);
-    throw new Error("No se pudo guardar en la biblioteca local.");
+    console.error("Error en persistencia SaaS:", e);
+    throw new Error("No se pudo guardar en la nube.");
   }
 };
 
 export const getLibrary = async (): Promise<AnalysisResult[]> => {
-  await new Promise(resolve => setTimeout(resolve, 400));
+  // Simulación de carga desde base de datos remota
+  await new Promise(resolve => setTimeout(resolve, 600));
   return getLibraryFromStorage();
 };
 
