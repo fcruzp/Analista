@@ -104,13 +104,13 @@ const MockupSidebar = ({ step }: { step: number }) => (
   <div className="hidden md:block col-span-3 space-y-4 border-r border-slate-800/50 pr-4 h-full">
     <div className="h-8 w-24 bg-slate-800/50 rounded animate-pulse mb-8"></div>
     <div className="space-y-2">
-      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 0 ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-500'}`}>
+      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 0 ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_15px_rgba(37,99,235,0.1)]' : 'text-slate-500'}`}>
         <span className="text-lg">📊</span> Panel
       </div>
-      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 1 ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-500'}`}>
+      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 1 ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_15px_rgba(37,99,235,0.1)]' : 'text-slate-500'}`}>
         <span className="text-lg">🎙️</span> Estudio
       </div>
-      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 2 ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-500'}`}>
+      <div className={`h-10 w-full rounded-lg flex items-center px-4 gap-3 text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${step === 2 ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_15px_rgba(37,99,235,0.1)]' : 'text-slate-500'}`}>
         <span className="text-lg">📂</span> Archivo
       </div>
     </div>
@@ -183,21 +183,21 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
                   </div>
                   <div className="grid grid-cols-3 gap-4 mb-8">
                     <div className="bg-slate-800/20 p-4 rounded-xl border border-slate-700/30">
-                      <div className="text-slate-500 text-[8px] uppercase font-black tracking-widest mb-2">Análisis Totales</div>
-                      <div className="text-2xl font-mono text-white">1,248</div>
+                      <div className="text-slate-500 text-[8px] uppercase font-black tracking-widest mb-2 italic">Análisis Totales</div>
+                      <div className="text-2xl font-mono text-white italic">1,248</div>
                     </div>
                     <div className="bg-slate-800/20 p-4 rounded-xl border border-slate-700/30">
-                      <div className="text-slate-500 text-[8px] uppercase font-black tracking-widest mb-2">Fuentes Activas</div>
-                      <div className="text-2xl font-mono text-cyan-400">14,502</div>
+                      <div className="text-slate-500 text-[8px] uppercase font-black tracking-widest mb-2 italic">Fuentes Activas</div>
+                      <div className="text-2xl font-mono text-blue-400 italic">14,502</div>
                     </div>
-                    <div className="bg-cyan-500/5 p-4 rounded-xl border border-cyan-500/20">
-                      <div className="text-cyan-500/60 text-[8px] uppercase font-black tracking-widest mb-2">Uso Mensual</div>
-                      <div className="text-2xl font-mono text-white">85%</div>
+                    <div className="bg-blue-500/5 p-4 rounded-xl border border-blue-500/20 shadow-inner">
+                      <div className="text-blue-500/60 text-[8px] uppercase font-black tracking-widest mb-2 italic">Uso Mensual</div>
+                      <div className="text-2xl font-mono text-white italic">85%</div>
                     </div>
                   </div>
-                  <div className="bg-slate-800/10 rounded-xl border border-slate-700/30 p-6 h-48 flex items-end justify-between gap-2">
+                  <div className="bg-slate-800/10 rounded-xl border border-slate-700/30 p-6 h-48 flex items-end justify-between gap-2 shadow-inner">
                     {[35, 55, 40, 70, 50, 85, 60, 90, 75, 50, 65, 95].map((h, i) => (
-                      <div key={i} className="w-full bg-cyan-500/30 rounded-t" style={{ height: `${h}%` }}></div>
+                      <div key={i} className="w-full bg-blue-500/30 rounded-t transition-all hover:bg-blue-400/50" style={{ height: `${h}%` }}></div>
                     ))}
                   </div>
                 </div>
@@ -206,32 +206,32 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
                 <div className={`absolute inset-0 transition-all duration-700 transform ${mockupStep === 1 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}`}>
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded border border-cyan-500/30 bg-cyan-500/5 flex items-center justify-center font-bold text-cyan-400 text-[8px]">MOD</div>
-                      <h3 className="text-xl font-black text-white uppercase italic">Estudio IA</h3>
+                      <div className="w-6 h-6 rounded border border-blue-500/30 bg-blue-500/5 flex items-center justify-center font-bold text-blue-400 text-[8px] italic shadow-[0_0_10px_rgba(37,99,235,0.1)]">MOD</div>
+                      <h3 className="text-xl font-black text-white uppercase italic tracking-tighter">Estudio IA</h3>
                     </div>
                   </div>
                   <div className="grid grid-cols-12 gap-6 h-full">
                     <div className="col-span-4 space-y-4">
                       <div className="space-y-1">
-                        <div className="text-[7px] font-black text-cyan-500/50 uppercase tracking-widest">Tema</div>
+                        <div className="text-[7px] font-black text-blue-500/50 uppercase tracking-widest italic">Tema</div>
                         <div className="grid grid-cols-2 gap-1">
-                          {['POL', 'ECO', 'GEO', 'TEC'].map(t => <div key={t} className={`h-6 rounded border text-[6px] flex items-center justify-center font-black ${t === 'POL' ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400' : 'bg-slate-800/30 border-slate-700 text-slate-500'}`}>{t}</div>)}
+                          {['POL', 'ECO', 'GEO', 'TEC'].map(t => <div key={t} className={`h-6 rounded border text-[6px] flex items-center justify-center font-black italic tracking-tighter ${t === 'POL' ? 'bg-blue-500/10 border-blue-500 text-blue-400 shadow-[0_0_10px_rgba(37,99,235,0.1)]' : 'bg-slate-800/30 border-slate-700 text-slate-500'}`}>{t}</div>)}
                         </div>
                       </div>
                       <div className="space-y-1">
-                        <div className="text-[7px] font-black text-cyan-500/50 uppercase tracking-widest">Perfil</div>
+                        <div className="text-[7px] font-black text-blue-500/50 uppercase tracking-widest italic">Perfil</div>
                         <div className="h-8 w-full rounded bg-slate-800/30 border border-slate-700"></div>
                       </div>
-                      <div className="h-20 w-full rounded bg-slate-950 border border-slate-800"></div>
-                      <div className="h-10 w-full rounded bg-cyan-600"></div>
+                      <div className="h-20 w-full rounded bg-slate-950 border border-slate-800 shadow-inner"></div>
+                      <div className="h-10 w-full rounded bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-[10px] font-black text-blue-400 uppercase tracking-widest italic shadow-lg shadow-blue-500/10">Generar</div>
                     </div>
-                    <div className="col-span-8 bg-slate-950/50 rounded-xl border border-slate-800 p-6 overflow-hidden relative">
-                      <div className="prose prose-invert prose-cyan max-w-none text-[8px] leading-relaxed text-left">
-                        <h4 className="text-cyan-400 font-black uppercase tracking-widest mb-4 border-b border-slate-800 pb-2 italic">Análisis: Estabilidad del Euro</h4>
-                        <p className="mb-3 text-white font-bold">Resumen Ejecutivo:</p>
-                        <p className="text-slate-400 mb-4 font-light">
+                    <div className="col-span-8 bg-slate-950/50 rounded-xl border border-slate-800 p-6 overflow-hidden relative backdrop-blur-sm">
+                      <div className="prose prose-invert prose-blue max-w-none text-[8px] leading-relaxed text-left">
+                        <h4 className="text-blue-400 font-black uppercase tracking-widest mb-4 border-b border-slate-800 pb-2 italic text-[10px]">Análisis: Estabilidad del Euro</h4>
+                        <p className="mb-3 text-white font-bold italic tracking-tighter">Resumen Ejecutivo:</p>
+                        <p className="text-slate-400 mb-4 font-light leading-relaxed">
                           El mercado europeo muestra señales de fortalecimiento frente a datos industriales de Alemania.
-                          Se observa un pivote en la política del BCE hacia <span className="text-cyan-400 font-bold">tasas de interés</span> restrictivas.
+                          Se observa un pivote en la política del BCE hacia <span className="text-blue-400 font-black italic">tasas de interés</span> restrictivas.
                         </p>
                         <h5 className="text-slate-200 font-bold uppercase tracking-wider mb-2">Puntos de Análisis</h5>
                         <ul className="space-y-2 text-slate-400 list-inside list-disc">
@@ -248,8 +248,8 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
                 {/* STEP 2: ARCHIVO (LIBRARY) */}
                 <div className={`absolute inset-0 transition-all duration-700 transform ${mockupStep === 2 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}`}>
                   <div className="mb-6">
-                    <h3 className="text-xl font-black text-white uppercase italic">Archivo Digital</h3>
-                    <div className="h-px w-20 bg-cyan-500/30 mt-1"></div>
+                    <h3 className="text-xl font-black text-white uppercase italic tracking-tighter">Archivo Digital</h3>
+                    <div className="h-px w-20 bg-blue-500/30 mt-1"></div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     {[
@@ -258,13 +258,13 @@ const HomeContent: React.FC<HomeContentProps> = ({ mockupStep, onScrollToPricing
                       { t: "Presupuesto Nacional", d: "Guion aire sobre el nuevo proyecto de ley...", c: "ECO" },
                       { t: "Elecciones Regionales", d: "Prospección política y datos históricos...", c: "POL" }
                     ].map((item, i) => (
-                      <div key={i} className="bg-slate-900/40 border border-slate-800 p-3 rounded-lg flex flex-col h-24">
-                        <div className="flex justify-between items-center mb-1">
-                          <div className="text-[6px] font-black text-cyan-400 bg-cyan-500/10 px-1 rounded uppercase tracking-widest">{item.c}</div>
-                          <div className="text-[6px] text-slate-600 font-mono">24/10/24</div>
+                      <div key={i} className="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex flex-col h-28 transform transition-all hover:border-blue-500/30 hover:bg-slate-900/60 shadow-xl">
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="text-[6px] font-black text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded uppercase tracking-widest border border-blue-500/20 italic">{item.c}</div>
+                          <div className="text-[6px] text-slate-600 font-mono italic">24/10/24</div>
                         </div>
-                        <div className="text-[9px] font-bold text-white mb-1 truncate">{item.t}</div>
-                        <div className="text-[7px] text-slate-500 line-clamp-2 italic">"{item.d}"</div>
+                        <div className="text-[9px] font-black text-white mb-1 truncate uppercase italic tracking-tighter">{item.t}</div>
+                        <div className="text-[7px] text-slate-500 line-clamp-2 italic opacity-70 leading-relaxed">"{item.d}"</div>
                       </div>
                     ))}
                   </div>

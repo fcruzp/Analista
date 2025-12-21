@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { generateAIAnalysisStream } from '../services/aiService';
 import { saveAnalysis } from '../services/dbService';
 import { AnalysisType, Topic, UserPlan } from '../types';
+import { User } from 'firebase/auth';
 
 interface GeneratorProps {
+  user: User | null;
   prompt: string;
   setPrompt: (v: string) => void;
   topic: Topic;
@@ -15,7 +17,7 @@ interface GeneratorProps {
 }
 
 const Generator: React.FC<GeneratorProps> = ({
-  prompt, setPrompt, topic, setTopic, type, setType, currentResult, setCurrentResult
+  user, prompt, setPrompt, topic, setTopic, type, setType, currentResult, setCurrentResult
 }) => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -38,7 +40,7 @@ const Generator: React.FC<GeneratorProps> = ({
 
     try {
       await generateAIAnalysisStream({
-        userId: 'current-user',
+        userId: user?.uid || 'anonymous',
         plan: UserPlan.PROFESSIONAL,
         topic,
         type,
@@ -119,20 +121,20 @@ const Generator: React.FC<GeneratorProps> = ({
   return (
     <div className="flex flex-col h-full bg-[#020617] overflow-hidden relative font-sans">
       {/* Selector de Pestañas para Móvil */}
-      <div className="md:hidden flex flex-shrink-0 border-b border-cyan-500/10 bg-slate-900/40 sticky top-0 z-30 backdrop-blur-md">
+      <div className="md:hidden flex flex-shrink-0 border-b border-blue-500/10 bg-slate-900/60 sticky top-0 z-30 backdrop-blur-xl">
         <button
           onClick={() => setMobileTab('config')}
-          className={`flex-1 py-4 text-[9px] font-black uppercase tracking-[0.2em] transition-all ${mobileTab === 'config' ? 'text-cyan-400 border-b-2 border-cyan-500 bg-cyan-500/5' : 'text-slate-500'}`}
+          className={`flex-1 py-4 text-[9px] font-black uppercase tracking-[0.2em] transition-all ${mobileTab === 'config' ? 'text-blue-400 border-b-2 border-blue-500 bg-blue-500/5' : 'text-slate-500'}`}
         >
           Parámetros
         </button>
         <button
           onClick={() => setMobileTab('result')}
-          className={`flex-1 py-4 text-[9px] font-black uppercase tracking-[0.2em] transition-all relative ${mobileTab === 'result' ? 'text-cyan-400 border-b-2 border-cyan-500 bg-cyan-500/5' : 'text-slate-500'}`}
+          className={`flex-1 py-4 text-[9px] font-black uppercase tracking-[0.2em] transition-all relative ${mobileTab === 'result' ? 'text-blue-400 border-b-2 border-blue-500 bg-blue-500/5' : 'text-slate-500'}`}
         >
           Resultado_IA
           {currentResult && mobileTab !== 'result' && (
-            <span className="absolute top-3 right-4 w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
+            <span className="absolute top-3 right-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(37,99,235,0.8)]"></span>
           )}
         </button>
       </div>
@@ -142,7 +144,7 @@ const Generator: React.FC<GeneratorProps> = ({
         <div className={`${mobileTab === 'config' ? 'flex' : 'hidden'} md:flex w-full md:w-80 lg:w-96 border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/20 p-6 overflow-y-auto print:hidden flex-col h-full relative z-10 pb-40 md:pb-12`}>
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded border border-cyan-500/30 bg-cyan-500/5 flex items-center justify-center font-bold text-cyan-400 text-[10px] shadow-[0_0_15px_rgba(34,211,238,0.1)]">MOD</div>
+              <div className="w-8 h-8 rounded border border-blue-500/30 bg-blue-500/5 flex items-center justify-center font-bold text-blue-400 text-[10px] shadow-[0_0_15px_rgba(37,99,235,0.1)]">MOD</div>
               <h2 className="text-xl font-black text-white tracking-tight uppercase italic">Estudio</h2>
             </div>
             {currentResult && (
@@ -154,13 +156,13 @@ const Generator: React.FC<GeneratorProps> = ({
 
           <div className="space-y-10">
             <section>
-              <label className="text-[9px] font-black text-cyan-500/50 uppercase tracking-[0.3em] mb-4 block font-mono">Input_Topic</label>
+              <label className="text-[9px] font-black text-blue-500/50 uppercase tracking-[0.3em] mb-4 block font-mono italic">Input_Topic</label>
               <div className="grid grid-cols-2 gap-2">
                 {Object.values(Topic).map((t) => (
                   <button
                     key={t}
                     onClick={() => setTopic(t)}
-                    className={`text-[8px] py-3.5 rounded-xl border font-black uppercase tracking-widest transition-all ${topic === t ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.15)]' : 'border-slate-800 bg-slate-800/20 text-slate-500 hover:text-slate-300'
+                    className={`text-[8px] py-3.5 rounded-xl border font-black uppercase tracking-widest transition-all ${topic === t ? 'bg-blue-600/10 border-blue-500 text-blue-400 shadow-[0_0_20px_rgba(37,99,235,0.15)]' : 'border-slate-800 bg-slate-800/20 text-slate-500 hover:text-slate-300'
                       }`}
                   >
                     {t}
@@ -170,7 +172,7 @@ const Generator: React.FC<GeneratorProps> = ({
             </section>
 
             <section>
-              <label className="text-[9px] font-black text-cyan-500/50 uppercase tracking-[0.3em] mb-4 block font-mono">Format_Profile</label>
+              <label className="text-[9px] font-black text-blue-500/50 uppercase tracking-[0.3em] mb-4 block font-mono italic">Format_Profile</label>
               <div className="space-y-2">
                 {[
                   { id: AnalysisType.DEEP, label: 'Estratégico', icon: '🧠' },
@@ -180,7 +182,7 @@ const Generator: React.FC<GeneratorProps> = ({
                   <button
                     key={opt.id}
                     onClick={() => setType(opt.id as any)}
-                    className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border transition-all ${type === opt.id ? 'bg-slate-900 border-cyan-500 text-white shadow-[0_0_15px_rgba(34,211,238,0.1)]' : 'bg-slate-900/30 border-slate-800 text-slate-500 hover:bg-slate-800/30'
+                    className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border transition-all ${type === opt.id ? 'bg-slate-900 border-blue-500 text-white shadow-[0_0_15px_rgba(37,99,235,0.1)]' : 'bg-slate-900/30 border-slate-800 text-slate-500 hover:bg-slate-800/30'
                       }`}
                   >
                     <span className="text-[10px] font-black uppercase tracking-widest">{opt.label}</span>
@@ -191,12 +193,12 @@ const Generator: React.FC<GeneratorProps> = ({
             </section>
 
             <section>
-              <label className="text-[9px] font-black text-cyan-500/50 uppercase tracking-[0.3em] mb-4 block font-mono">Base_Context</label>
+              <label className="text-[9px] font-black text-blue-500/50 uppercase tracking-[0.3em] mb-4 block font-mono italic">Base_Context</label>
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="PROMPT DE PRODUCCIÓN..."
-                className="w-full bg-slate-950 border border-slate-800 text-white rounded-2xl p-5 h-40 text-xs font-medium focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20 outline-none resize-none transition-all placeholder:text-slate-800 tracking-wide"
+                className="w-full bg-slate-950 border border-slate-800 text-white rounded-2xl p-5 h-40 text-xs font-medium focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 outline-none resize-none transition-all placeholder:text-slate-800 tracking-wide shadow-inner"
               ></textarea>
             </section>
 
@@ -205,7 +207,7 @@ const Generator: React.FC<GeneratorProps> = ({
               <button
                 onClick={handleGenerate}
                 disabled={loading || !prompt}
-                className={`w-full py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.4em] text-white shadow-2xl transition-all relative overflow-hidden group ${loading || !prompt ? 'bg-slate-800 text-slate-500 cursor-not-allowed opacity-50' : 'bg-cyan-600 hover:bg-cyan-500 active:scale-95 shadow-cyan-500/20'
+                className={`w-full py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.4em] text-white shadow-2xl transition-all relative overflow-hidden group ${loading || !prompt ? 'bg-slate-800 text-slate-500 cursor-not-allowed opacity-50' : 'bg-blue-600 hover:bg-blue-500 active:scale-95 shadow-blue-500/20'
                   }`}
               >
                 <span className="relative z-10">{loading ? "Generando..." : "Ejecutar Análisis"}</span>
@@ -221,8 +223,8 @@ const Generator: React.FC<GeneratorProps> = ({
         <div className={`${mobileTab === 'result' ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-[#020617] relative overflow-hidden h-full`}>
           <div className="h-16 border-b border-slate-800 bg-slate-900/10 flex items-center justify-between px-6 flex-shrink-0 z-20 backdrop-blur-sm">
             <div className="flex items-center gap-4">
-              <span className="hidden sm:inline text-[9px] font-black text-cyan-500/30 uppercase tracking-[0.2em] font-mono leading-none">Status: {loading ? 'Syncing' : 'Standby'}</span>
-              <div className={`w-2 h-2 rounded-full ${loading ? 'bg-amber-500 animate-pulse' : currentResult ? 'bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]' : 'bg-slate-800'}`}></div>
+              <span className="hidden sm:inline text-[9px] font-black text-blue-500/30 uppercase tracking-[0.2em] font-mono leading-none italic">Status: {loading ? 'Syncing' : 'Standby'}</span>
+              <div className={`w-2 h-2 rounded-full ${loading ? 'bg-amber-500 animate-pulse' : currentResult ? 'bg-blue-400 shadow-[0_0_10px_rgba(37,99,235,0.8)]' : 'bg-slate-800'}`}></div>
             </div>
 
             {currentResult && (
@@ -236,13 +238,13 @@ const Generator: React.FC<GeneratorProps> = ({
                 <button
                   onClick={handleSave}
                   disabled={saving || saveSuccess}
-                  className={`p-2.5 rounded-xl transition-all border ${saveSuccess ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'}`}
+                  className={`p-2.5 rounded-xl transition-all border ${saveSuccess ? 'bg-green-500/20 border-green-500/50 text-green-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'}`}
                 >
                   {saveSuccess ? '✓' : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" /></svg>}
                 </button>
                 <button
                   onClick={() => setShowTeleprompter(true)}
-                  className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-cyan-600/20 transition-all ml-2"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-blue-600/20 transition-all ml-2"
                 >
                   Aire
                 </button>
@@ -252,23 +254,23 @@ const Generator: React.FC<GeneratorProps> = ({
 
           <div
             ref={outputRef}
-            className="flex-1 p-6 md:p-16 overflow-y-auto bg-[radial-gradient(circle_at_50%_0%,_rgba(34,211,238,0.03)_0%,_transparent_50%)]"
+            className="flex-1 p-6 md:p-16 overflow-y-auto bg-[radial-gradient(circle_at_50%_0%,_rgba(37,99,235,0.03)_0%,_transparent_50%)]"
           >
             {currentResult ? (
               <div className="max-w-3xl mx-auto pb-48 md:pb-24">
-                <div className="prose prose-invert prose-cyan max-w-none text-slate-200">
+                <div className="prose prose-invert prose-blue max-w-none text-slate-200">
                   {currentResult.split('\n').map((line, i) => {
-                    if (line.startsWith('# ')) return <h1 key={i} className="text-3xl font-black text-white mb-10 border-b border-slate-800 pb-6 leading-tight uppercase italic">{line.replace('# ', '')}</h1>;
-                    if (line.startsWith('## ')) return <h2 key={i} className="text-xl font-black text-cyan-400 mt-12 mb-6 uppercase tracking-[0.2em]">{line.replace('## ', '')}</h2>;
+                    if (line.startsWith('# ')) return <h1 key={i} className="text-3xl md:text-5xl font-black text-white mb-10 border-b border-slate-800 pb-8 leading-tight uppercase italic tracking-tighter">{line.replace('# ', '')}</h1>;
+                    if (line.startsWith('## ')) return <h2 key={i} className="text-xl font-black text-blue-400 mt-12 mb-6 uppercase tracking-[0.2em] italic">{line.replace('## ', '')}</h2>;
                     if (line.startsWith('### ')) return <h3 key={i} className="text-lg font-black text-slate-400 mt-8 mb-4 uppercase tracking-widest">{line.replace('### ', '')}</h3>;
 
                     // Simple bold handling (**text**)
                     const parts = line.split(/(\*\*.*?\*\*)/g);
                     return (
-                      <p key={i} className="mb-5 text-slate-300 font-light whitespace-pre-wrap text-sm md:text-base leading-relaxed tracking-wide">
+                      <p key={i} className="mb-6 text-slate-300 font-light whitespace-pre-wrap text-sm md:text-base leading-relaxed tracking-wide">
                         {parts.map((part, j) => {
                           if (part.startsWith('**') && part.endsWith('**')) {
-                            return <strong key={j} className="font-black text-cyan-400">{part.slice(2, -2)}</strong>;
+                            return <strong key={j} className="font-black text-blue-400 italic">{part.slice(2, -2)}</strong>;
                           }
                           return part;
                         })}
@@ -279,12 +281,12 @@ const Generator: React.FC<GeneratorProps> = ({
               </div>
             ) : (
               <div className="h-full flex flex-col items-center justify-center opacity-10 text-center animate-pulse">
-                <div className="text-8xl mb-8 text-cyan-500">
+                <div className="text-8xl mb-8 text-blue-500">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-24 h-24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
                   </svg>
                 </div>
-                <p className="text-[12px] font-black uppercase tracking-[0.6em] text-cyan-400">Station_Ready</p>
+                <p className="text-[12px] font-black uppercase tracking-[0.6em] text-blue-400">Station_Ready</p>
                 <p className="text-[10px] mt-4 max-w-[240px] leading-relaxed text-slate-500 font-mono uppercase">A la espera de parámetros para iniciar proceso de síntesis informativa.</p>
               </div>
             )}
@@ -307,24 +309,24 @@ const Generator: React.FC<GeneratorProps> = ({
             </div>
             <div className="flex gap-4 items-center">
               <div className="hidden md:flex bg-slate-900/80 px-6 py-3 rounded-xl border border-slate-800 gap-4 items-center">
-                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Vel.</span>
-                <input type="range" min="1" max="50" value={teleprompterSpeed} onChange={(e) => setTeleprompterSpeed(parseInt(e.target.value))} className="accent-cyan-500 w-48" />
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest italic">Velocidad</span>
+                <input type="range" min="1" max="50" value={teleprompterSpeed} onChange={(e) => setTeleprompterSpeed(parseInt(e.target.value))} className="accent-blue-500 w-48" />
               </div>
-              <button onClick={() => setShowTeleprompter(false)} className="bg-red-600 hover:bg-red-500 text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-2xl">Cerrar</button>
+              <button onClick={() => setShowTeleprompter(false)} className="bg-red-600/20 border border-red-500/50 hover:bg-red-600 text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-2xl italic">Cerrar</button>
             </div>
           </div>
 
           <div className="max-w-5xl w-full h-[70vh] overflow-hidden relative cursor-pointer" onClick={() => setIsPaused(!isPaused)}>
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black via-transparent to-black z-10"></div>
-            <div className="absolute top-1/2 left-0 right-0 h-px bg-cyan-500/20 z-0"></div>
+            <div className="absolute top-1/2 left-0 right-0 h-px bg-blue-500/10 z-0"></div>
             <div
               key={scrollKey}
               className={`text-white text-3xl md:text-7xl font-bold leading-snug animate-scroll-up px-12 py-[40vh] text-center whitespace-pre-wrap tracking-tight ${isPaused ? 'pause-animation' : ''}`}
               style={{ animationDuration: `${getTeleprompterDuration()}s`, animationTimingFunction: 'linear', animationFillMode: 'forwards' }}
             >
               {currentResult.split('\n').map((line, i) => {
-                if (line.startsWith('# ')) return <div key={i} className="text-4xl md:text-8xl font-black text-white mb-12 uppercase italic">{line.replace('# ', '')}</div>;
-                if (line.startsWith('## ')) return <div key={i} className="text-3xl md:text-7xl font-black text-cyan-400 mt-16 mb-8 uppercase tracking-[0.1em]">{line.replace('## ', '')}</div>;
+                if (line.startsWith('# ')) return <div key={i} className="text-4xl md:text-8xl font-black text-white mb-12 uppercase italic tracking-tighter">{line.replace('# ', '')}</div>;
+                if (line.startsWith('## ')) return <div key={i} className="text-3xl md:text-7xl font-black text-blue-400 mt-16 mb-8 uppercase tracking-[0.1em] italic">{line.replace('## ', '')}</div>;
                 if (line.startsWith('### ')) return <div key={i} className="text-2xl md:text-6xl font-black text-slate-400 mt-12 mb-6 uppercase tracking-widest">{line.replace('### ', '')}</div>;
 
                 // Simple bold handling (**text**)
@@ -333,7 +335,7 @@ const Generator: React.FC<GeneratorProps> = ({
                   <div key={i} className="mb-8">
                     {parts.map((part, j) => {
                       if (part.startsWith('**') && part.endsWith('**')) {
-                        return <span key={j} className="font-black text-cyan-400">{part.slice(2, -2)}</span>;
+                        return <span key={j} className="font-black text-blue-400 italic">{part.slice(2, -2)}</span>;
                       }
                       return part;
                     })}

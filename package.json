@@ -10,7 +10,19 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^1.34.0",
+    "@supabase/supabase-js": "^2.38.4",
     "express": "^4.18.2",
-    "path": "^0.12.7"
+    "firebase": "^10.7.1",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
+    "@vitejs/plugin-react": "^4.1.0",
+    "typescript": "^5.2.2",
+    "vite": "^7.3.0"
   }
 }

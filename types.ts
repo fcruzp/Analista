@@ -23,6 +23,7 @@ export enum Topic {
 export interface UserProfile {
   id: string;
   email: string;
+  displayName?: string;
   plan: UserPlan;
   tokensUsed: number;
   tokensLimit: number;
